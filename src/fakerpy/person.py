@@ -1,10 +1,10 @@
 import json
+import importlib.resources
 from random import randint
 from . enums import CountryCode, Gender
+from . import data
 
-_DATA_FOLDER = __file__ + "/../data/"
-
-with open(_DATA_FOLDER + "mail_domains.json", encoding="UTF-8") as g_file:
+with importlib.resources.open_text(data, "mail_domains.json") as g_file:
     _mail_domains = json.load(g_file)
 
 _passchars = list(r"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl" +
@@ -33,24 +33,24 @@ class Person:
 
 def random_person(countrycode: CountryCode = CountryCode.US, gender: Gender = Gender.RANDOM):
     if gender == Gender.RANDOM:
-        with open(_DATA_FOLDER + "first_names_" + countrycode.value + "_m.json", encoding="UTF-8") as file:
+        with importlib.resources.open_text(data, "first_names_" + countrycode.value + "_m.json", encoding="UTF-8") as file:
             _first_names_m = json.load(file)
-        with open(_DATA_FOLDER + "first_names_" + countrycode.value + "_f.json", encoding="UTF-8") as file:
+        with importlib.resources.open_text(data, "first_names_" + countrycode.value + "_f.json", encoding="UTF-8") as file:
             _first_names_f = json.load(file)
 
         _first_names = _first_names_f + _first_names_m
 
     else:
-        with open(_DATA_FOLDER + "first_names_" + countrycode.value + "_" + gender.value + ".json", encoding="UTF-8") as file:
+        with importlib.resources.open_text(data, "first_names_" + countrycode.value + "_" + gender.value + ".json", encoding="UTF-8") as file:
             _first_names = json.load(file)
 
-    with open(_DATA_FOLDER + "last_names_" + countrycode.value + ".json", encoding="UTF-8") as file:
+    with importlib.resources.open_text(data, "last_names_" + countrycode.value + ".json", encoding="UTF-8") as file:
         _last_names = json.load(file)
 
-    with open(_DATA_FOLDER + "street_names_" + countrycode.value + ".json", encoding="UTF-8") as file:
+    with importlib.resources.open_text(data, "street_names_" + countrycode.value + ".json", encoding="UTF-8") as file:
         _street_names = json.load(file)
 
-    with open(_DATA_FOLDER + "city_names_" + countrycode.value + ".json", encoding="UTF-8") as file:
+    with importlib.resources.open_text(data, "city_names_" + countrycode.value + ".json", encoding="UTF-8") as file:
         _city_names = json.load(file)
 
     firstname = _first_names[randint(0, len(_first_names) - 1)]
