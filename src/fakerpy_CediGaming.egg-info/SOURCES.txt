@@ -1,0 +1,8 @@
+LICENSE
+README.md
+pyproject.toml
+setup.cfg
+src/fakerpy_CediGaming.egg-info/PKG-INFO
+src/fakerpy_CediGaming.egg-info/SOURCES.txt
+src/fakerpy_CediGaming.egg-info/dependency_links.txt
+src/fakerpy_CediGaming.egg-info/top_level.txt
