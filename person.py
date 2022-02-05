@@ -1,11 +1,10 @@
 import json
 from random import randint
+from . enums import CountryCode, Gender
 
 _data_folder = __file__ + "/../data/"
-_first_names = json.load(open(_data_folder + "first_names.json", encoding="UTF-8"))
-_last_names = json.load(open(_data_folder + "last_names.json", encoding="UTF-8"))
+
 _mail_domains = json.load(open(_data_folder + "mail_domains.json"))
-_city_names = json.load(open(_data_folder + "city_names.json", encoding="UTF-8"))
 _passchars = list("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*_.,!?&%$=()[]}{\/")
 
 class Person:
@@ -29,12 +28,25 @@ class Person:
 		return self.street + " " + self.hsnr + ", " + self.plz + " " + self.city
 
 
-def randomPerson():
+def randomPerson(countrycode: CountryCode = CountryCode.US, gender: Gender = Gender.RANDOM):
+	if gender == Gender.RANDOM:
+		_first_names_m = json.load(open(_data_folder + "first_names_" + countrycode.value + "_m.json", encoding="UTF-8"))
+		_first_names_f = json.load(open(_data_folder + "first_names_" + countrycode.value + "_f.json", encoding="UTF-8"))
+		_first_names = _first_names_f + _first_names_m
+	elif gender == Gender.MALE:
+		_first_names = json.load(open(_data_folder + "first_names_" + countrycode.value + "_m.json", encoding="UTF-8"))
+	elif gender == Gender.FEMALE:
+		_first_names = json.load(open(_data_folder + "first_names_" + countrycode.value + "_f.json", encoding="UTF-8"))
+	
+	_last_names = json.load(open(_data_folder + "last_names_" + countrycode.value + ".json", encoding="UTF-8"))
+	_street_names = json.load(open(_data_folder + "street_names_" + countrycode.value + ".json", encoding="UTF-8"))
+	_city_names = json.load(open(_data_folder + "city_names_" + countrycode.value + ".json", encoding="UTF-8"))
+
 	firstname = _first_names[randint(0, len(_first_names) - 1)]
 	lastname = _last_names[randint(0, len(_last_names) - 1)]
 	maildomain = _mail_domains[randint(0, len(_mail_domains) - 1)]
 	password = ""
-	street = _first_names[randint(0, len(_first_names) - 1)] + "-" + _last_names[randint(0, len(_last_names) - 1)] + "-Straße"
+	street = _street_names[randint(0, len(_street_names) - 1)]
 	hsnr = str(randint(1,512))
 	plz = str(randint(10000, 99999))
 	city = _city_names[randint(0, len(_city_names) - 1)]

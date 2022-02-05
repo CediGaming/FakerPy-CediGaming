@@ -1,1 +1,1 @@
-__all__ = ["person"]
+__all__ = ["person", "enums"]
