@@ -1,5 +1,5 @@
 import json
-import random
+from random import randint
 
 _data_folder = __file__ + "/../data/"
 _first_names = json.load(open(_data_folder + "first_names.json", encoding="UTF-8"))
@@ -30,16 +30,16 @@ class Person:
 
 
 def randomPerson():
-	firstname = _first_names[random.randint(0, len(_first_names) - 1)]
-	lastname = _last_names[random.randint(0, len(_last_names) - 1)]
-	maildomain = _mail_domains[random.randint(0, len(_mail_domains) - 1)]
+	firstname = _first_names[randint(0, len(_first_names) - 1)]
+	lastname = _last_names[randint(0, len(_last_names) - 1)]
+	maildomain = _mail_domains[randint(0, len(_mail_domains) - 1)]
 	password = ""
-	street = _first_names[random.randint(0, len(_first_names) - 1)] + "-" + _last_names[random.randint(0, len(_last_names) - 1)] + "-Straße"
-	hsnr = str(random.randint(1,512))
-	plz = str(random.randint(10000, 99999))
-	city = _city_names[random.randint(0, len(_city_names) - 1)]
+	street = _first_names[randint(0, len(_first_names) - 1)] + "-" + _last_names[randint(0, len(_last_names) - 1)] + "-Straße"
+	hsnr = str(randint(1,512))
+	plz = str(randint(10000, 99999))
+	city = _city_names[randint(0, len(_city_names) - 1)]
 
-	for p in range(random.randint(5,12)):
-		password += _passchars[random.randint(0,len(_passchars) - 1)]
+	for p in range(randint(5,12)):
+		password += _passchars[randint(0,len(_passchars) - 1)]
 	
 	return Person(firstname, lastname, firstname+"."+lastname+"@"+maildomain, password, street, hsnr, plz, city)
